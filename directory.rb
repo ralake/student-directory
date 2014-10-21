@@ -1,3 +1,4 @@
+student_count = 22
 # first we print the list of future Makers
 puts "Karin Nielsen"
 puts "Christopher Batts"
@@ -22,7 +23,4 @@ puts "Georgia Amici"
 puts "Claudia B"
 puts "Chris Handley"
 # Then we print the total
-print "Overall, we have "
-# Print does not add new line characters
-print 22
-print " students."
+puts "Overall, we have #{student_count} students."

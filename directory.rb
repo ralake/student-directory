@@ -1,3 +1,4 @@
+# first we print the list of future Makers
 puts "Karin Nielsen"
 puts "Christopher Batts"
 puts "Nick Dyer"
@@ -20,4 +21,8 @@ puts "Mishal I"
 puts "Georgia Amici"
 puts "Claudia B"
 puts "Chris Handley"
-puts "Overall, we have 22 students."
+# Then we print the total
+print "Overall, we have "
+# Print does not add new line characters
+print 22
+print " students."

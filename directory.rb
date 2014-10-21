@@ -1,26 +1,33 @@
-student_count = 22
-# first we print the list of future Makers
-puts "Karin Nielsen"
-puts "Christopher Batts"
-puts "Nick Dyer"
-puts "Edward Byne"
-puts "Alex Blease"
-puts "Ben Hutchinson"
-puts "Victoria Stepanovna"
-puts "Ayo Obembe"
-puts "Yvette Cook"
-puts "Pavel Redics"
-puts "Dale Stevens"
-puts "Alan Bridger"
-puts "Clare Trembath"
-puts "Denise Yu"
-puts "Ella Schofield"
-puts "Tim Scully"
-puts "Izzy Markwick"
-puts "Simon Lange"
-puts "Mishal I"
-puts "Georgia Amici"
-puts "Claudia B"
-puts "Chris Handley"
-# Then we print the total
-puts "Overall, we have #{student_count} students."
+# puts students into an array
+students = [
+"Karin Nielsen",
+"Christopher Batts",
+"Nick Dyer",
+"Edward Byne",
+"Alex Blease",
+"Ben Hutchinson",
+"Victoria Stepanovna",
+"Ayo Obembe",
+"Yvette Cook",
+"Pavel Redics",
+"Dale Stevens",
+"Alan Bridger",
+"Clare Trembath",
+"Denise Yu",
+"Ella Schofield",
+"Tim Scully",
+"Izzy Markwick",
+"Simon Lange",
+"Mishal I",
+"Georgia Amici",
+"Claudia B",
+"Chris Handley"
+]
+# Then we print them
+puts "The students at Makers Academy"
+puts "--------------"
+students.each do |student|
+  puts student
+end
+# Finally we print the total
+puts "Overall, we have #{students.length} students."

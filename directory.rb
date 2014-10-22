@@ -23,13 +23,8 @@ def print_header
 end
 
 def print(students)
-=begin
-	students.each_with_index() do |student, index| i = index + 1;
-  puts "#{i}. #{student[:name]} (#{student[:cohort]} cohort)"
-  end
-=end
 	students.each do |student|
-		if student[:name].length < 13
+		if student[:name].include?("A")
 			puts "#{student[:name]} (#{student[:cohort]} cohort)"
 		else
 		end

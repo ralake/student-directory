@@ -7,10 +7,12 @@ def input_students
   name = gets.chomp
   # While the name is not empty repeat this code
   while !name.empty? do
-  	# Add the student hash to the array
+  	#Add cohort info to hash
+  	puts "Enter the cohort month".center(70)
+  	cohort = gets.chomp
   	puts "Enter the nationality of the student".center(70)
   	nationality = gets.chomp
-  	students << {:name => name, :cohort => :october, :nationality => nationality}
+  	students << {:name => name, :cohort => cohort, :nationality => nationality}
   	puts "Now we have #{students.length} students.".center(70)
   	# Get another name from the user
   	name = gets.chomp
@@ -25,7 +27,7 @@ def print_header
 end
 
 def print(students)
-	students.select {|student| puts "#{student[:name]}, (#{student[:nationality]})".center(70)}
+	students.select {|student| puts "#{student[:name]}, #{student[:nationality]} (#{student[:cohort]} cohort)".center(70)}
 end
 
 

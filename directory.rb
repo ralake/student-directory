@@ -24,7 +24,7 @@ end
 
 def print(students)
 	students.each do |student|
-		if student[:name].include?("A")
+		if student[:name].match(/^A/)
 			puts "#{student[:name]} (#{student[:cohort]} cohort)"
 		else
 		end

@@ -1,18 +1,19 @@
 def input_students
-  puts "Please enter the names of the students".center(70)
+  puts "Please enter the name of a student".center(70)
   puts "To finish, just hit return twice.".center(70)
-  # Create an empty array
+
   students = []
-  # Get the first name
   name = gets.chomp
-  # While the name is not empty repeat this code
+
   while !name.empty? do
-  	#Add cohort info to hash
-  	puts "Enter the cohort month".center(70)
+  	# Get cohort and nationality info from user, shovel to students array and puts confirmation
+  	puts "Enter #{name}'s cohort month".center(70)
   	cohort = gets.chomp
-  	puts "Enter the nationality of the student".center(70)
+  	puts "Enter #{name}'s nationality".center(70)
   	nationality = gets.chomp
-  	students << {:name => name, :cohort => cohort, :nationality => nationality}
+  	list = Hash.new("Unknown")
+  	list[:name] = name; list[:cohort] = cohort; list[:nationality] = nationality
+  	students << list
   	puts "Now we have #{students.length} students.".center(70)
   	# Get another name from the user
   	name = gets.chomp
@@ -27,9 +28,10 @@ def print_header
 end
 
 def print(students)
-	students.select {|student| puts "#{student[:name]}, #{student[:nationality]} (#{student[:cohort]} cohort)".center(70)}
+	# Selects pupils starting in October and prints them only
+	puts "October Cohort".center(70)
+	students.map {|pupil| pupil.each {|k, v| if v == "October" then puts "#{pupil[:name]}".center(70) end}}
 end
-
 
 def print_footer(names)
   puts "Overall, we have #{names.length} future makers".center(70)
@@ -39,5 +41,7 @@ students = input_students
 print_header
 print(students)
 print_footer(students)
+
+
 
 

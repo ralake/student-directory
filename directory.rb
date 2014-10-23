@@ -14,7 +14,11 @@ def input_students
   	list = Hash.new("Unknown")
   	list[:name] = name; list[:cohort] = cohort; list[:nationality] = nationality
   	students << list
-  	puts "Now we have #{students.length} students.".center(70)
+  	if students.length == 1
+  		puts "Now we have #{students.length} student.".center(70)
+  	else	
+  		puts "Now we have #{students.length} students.".center(70)
+  	end
   	# Get another name from the user
   	name = gets.chomp
   end
@@ -30,11 +34,20 @@ end
 def print(students)
 	# Selects pupils starting in October and prints them only
 	puts "October Cohort".center(70)
-	students.map {|pupil| pupil.each {|k, v| if v == "October" then puts "#{pupil[:name]}".center(70) end}}
+	students.each {|pupil| pupil.each {|k, v| if v == "October" then puts "#{pupil[:name]}".center(70) end}}
+=begin
+--- Attempt to sort through hashes to find those not in october cohort - prints incorrect data and repeats thereof. Work on this.
+puts "Other Future Cohorts".center(70)
+students.each {|maker| maker.each {|key, value| if value != "October" then puts "#{pupil[:name]}".center(70) end}
+=end
 end
 
 def print_footer(names)
-  puts "Overall, we have #{names.length} future makers".center(70)
+	if names.length == 1
+  	puts "Overall, we have #{names.length} future maker".center(70)
+  else
+  	puts "Overall, we have #{names.length} future makers".center(70)
+  end
 end
 
 students = input_students

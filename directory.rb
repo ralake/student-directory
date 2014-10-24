@@ -78,25 +78,28 @@ def show_students
   print_footer
 end
 
-def interactive_menu
-  loop do
-    selection = gets.chomp
-    case selection
-      when "1"
-        @students = input_students
-      when "2"
-        print_header
-        print
-        print_footer
-      when "9"
-        exit
-      else
-        puts "I don't know what you meant, try again."
-      end
-    end
+def process(selection)
+  case selection
+    when "1"
+      @students = input_students
+    when "2"
+      print_header
+      print
+      print_footer
+    when "9"
+      exit
+    else
+      puts "I don't know what you meant, try again."
+  end
 end
 
-print_menu
+def interactive_menu
+  loop do
+    print_menu
+    process(gets.chomp)
+  end  
+end
+
 interactive_menu
 
 

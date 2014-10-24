@@ -35,8 +35,8 @@ end
 
 def october_cohort
   puts "October Cohort".center(70)
-  @students.each do |pupil|
-    pupil.each {|k, v| if v == "October" then puts "#{pupil[:name]}".center(70) end}
+  @students.each do |maker|
+    maker.each {|k, v| if v == "October" then puts "#{maker[:name]}".center(70) end}
   end
 end
 
@@ -47,7 +47,7 @@ def other_cohorts
   end
 end
 
-def print
+def print_students_list
 	if @students.length >= 1
 	  october_cohort
     puts "\n"
@@ -67,9 +67,10 @@ def print_footer
 end
 
 def print_menu
-  puts "1. Input students"
-  puts "2. Show students"
-  puts "9. Exit"
+  puts "1. Input students".center(70)
+  puts "2. Show students".center(70)
+  puts "3. Save the student list to students.csv".center(70)
+  puts "9. Exit".center(70)
 end
 
 def show_students
@@ -84,12 +85,14 @@ def process(selection)
       @students = input_students
     when "2"
       print_header
-      print
+      print_students_list
       print_footer
+    when "3"
+      save_students
     when "9"
       exit
     else
-      puts "I don't know what you meant, try again."
+      puts "I don't know what you meant, try again.".center(70)
   end
 end
 
@@ -99,6 +102,17 @@ def interactive_menu
     process(gets.chomp)
   end  
 end
+
+def save_students
+  file = File.open("students.csv", "w")
+  @students.each do |student|
+    student_data = [student[:name], student[:cohort]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
+  end
+  file.close
+end
+
 
 interactive_menu
 

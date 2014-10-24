@@ -3,14 +3,14 @@ def input_students
   puts "To finish, just hit return twice.".center(70)
 
   students = []
-  name = gets.chomp
+  name = gets.strip
 
   while !name.empty? do
   	# Get cohort and nationality info from user, shovel to students array and puts confirmation
   	puts "Enter #{name}'s cohort month".center(70)
-  	cohort = gets.chomp
+  	cohort = gets.strip
   	puts "Enter #{name}'s nationality".center(70)
-  	nationality = gets.chomp
+  	nationality = gets.strip
   	list = Hash.new("Unknown")
   	list[:name] = name; list[:cohort] = cohort; list[:nationality] = nationality
   	students << list
@@ -20,7 +20,7 @@ def input_students
   		puts "Now we have #{students.length} students.".center(70)
   	end
   	# Get another name from the user
-  	name = gets.chomp
+  	name = gets.strip
   end
   # Return the array of students
   students
@@ -31,15 +31,24 @@ def print_header
   puts "--------------".center(70)
 end
 
+def october_cohort(students)
+  puts "October Cohort".center(70)
+  students.each do |pupil|
+    pupil.each {|k, v| if v == "October" then puts "#{pupil[:name]}".center(70) end}
+  end
+end
+
+def other_cohorts(students)
+  puts "Other Cohorts".center(70)
+  students.each do |maker|
+    unless maker.has_value?("October") then puts "#{maker[:name]}".center(70) end
+  end
+end
+
 def print(students)
 	# Selects pupils starting in October and prints them only
-	puts "October Cohort".center(70)
-	students.each {|pupil| pupil.each {|k, v| if v == "October" then puts "#{pupil[:name]}".center(70) end}}
-=begin
---- Attempt to sort through hashes to find those not in october cohort - prints incorrect data and repeats thereof. Work on this.
-puts "Other Future Cohorts".center(70)
-students.each {|maker| maker.each {|key, value| if value != "October" then puts "#{pupil[:name]}".center(70) end}
-=end
+	october_cohort(students)
+  other_cohorts(students)
 end
 
 def print_footer(names)

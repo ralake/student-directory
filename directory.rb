@@ -11,7 +11,7 @@ def input_students
   	cohort = gets.strip
   	puts "Enter #{name}'s nationality".center(70)
   	nationality = gets.strip
-  	list = Hash.new("Unknown")
+  	list = Hash.new
   	list[:name] = name; list[:cohort] = cohort; list[:nationality] = nationality
   	students << list
   	if students.length == 1
@@ -27,8 +27,8 @@ def input_students
 end
 
 def print_header
-  puts "The students of Makers Academy".center(70)
-  puts "--------------".center(70)
+  puts "The Students of Makers Academy".center(70)
+  puts "------------------------------".center(70)
 end
 
 def october_cohort(students)
@@ -41,17 +41,22 @@ end
 def other_cohorts(students)
   puts "Other Cohorts".center(70)
   students.each do |maker|
-    unless maker.has_value?("October") then puts "#{maker[:name]}".center(70) end
+    unless maker.has_value?("October") then puts "#{maker[:name]} - #{maker[:cohort]} cohort".center(70) end
   end
 end
 
 def print(students)
-	# Selects pupils starting in October and prints them only
-	october_cohort(students)
-  other_cohorts(students)
+	if students.length >= 1
+	  october_cohort(students)
+    puts "\n"
+    other_cohorts(students)
+  else
+    puts "NO STUDENTS ENTERED".center(70)
+  end
 end
 
 def print_footer(names)
+  puts "------------------------------".center(70)
 	if names.length == 1
   	puts "Overall, we have #{names.length} future maker".center(70)
   else

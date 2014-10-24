@@ -6,23 +6,24 @@ def input_students
   name = gets.strip
 
   while !name.empty? do
-  	# Get cohort and nationality info from user, shovel to students array and puts confirmation
   	puts "Enter #{name}'s cohort month".center(70)
   	cohort = gets.strip
   	puts "Enter #{name}'s nationality".center(70)
   	nationality = gets.strip
-  	list = Hash.new
+=begin
+Trying to add string default to hash values if user doesn't input...
+  	list = Hash.new("Unknown")
   	list[:name] = name; list[:cohort] = cohort; list[:nationality] = nationality
   	students << list
+=end
+    students << {:name => name, :cohort => cohort, :nationality => nationality}
   	if students.length == 1
   		puts "Now we have #{students.length} student.".center(70)
   	else	
   		puts "Now we have #{students.length} students.".center(70)
   	end
-  	# Get another name from the user
   	name = gets.strip
   end
-  # Return the array of students
   students
 end
 
@@ -64,10 +65,32 @@ def print_footer(names)
   end
 end
 
-students = input_students
-print_header
-print(students)
-print_footer(students)
+def interactive_menu
+  students = []
+  loop do
+    puts "1. Input students"
+    puts "2. Show students"
+    puts "9. Exit"
+
+    selection = gets.chomp
+
+    case selection
+      when "1"
+        students = input_students
+      when "2"
+        print_header
+        print(students)
+        print_footer(students)
+      when "9"
+        exit
+      else
+        puts "I don't know what you meant, try again."
+      end
+    end
+end
+
+interactive_menu
+
 
 
 

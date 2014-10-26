@@ -110,22 +110,11 @@ def interactive_menu
 end
 
 def save_students
-  file = File.open("students.csv", "w")
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
-  end
-  file.close
+  file = File.open("students.csv", "w") {|file| @students.each do |student| student_data = [student[:name], student[:cohort]]; csv_line = student_data.join(","); file.puts csv_line end}
 end
 
 def load_students
-	file = File.open("students.csv", "r")
-	file.readlines.each do |line|
-		name, cohort = line.chomp.split(',')
-		  add_to_list(name, cohort)
-	end
-	file.close
+	file = File.open("students.csv", "r").readlines.each {|line| name, cohort = line.chomp.split(','); add_to_list(name, cohort)}
 end
 
 

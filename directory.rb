@@ -1,5 +1,7 @@
 @students = []
 
+require 'csv'
+
 def input_students
   puts "Please enter the name of a student".center(70)
   puts "To finish, just hit return twice.".center(70)
@@ -72,8 +74,8 @@ def print_menu
 	puts "- - -STUDENT DIRECTORY- - -".center(70)
   puts "1. Input students".center(70)
   puts "2. Show students".center(70)
-  puts "3. Save the students list to students.csv".center(70)
-  puts "4. Load the students list from students.csv".center(70)
+  puts "3. Save the students list to file".center(70)
+  puts "4. Load the students list from file".center(70)
   puts "9. Exit".center(70)
 end
 
@@ -110,11 +112,14 @@ def interactive_menu
 end
 
 def save_students
-  file = File.open("students.csv", "w") {|file| @students.each do |student| student_data = [student[:name], student[:cohort]]; csv_line = student_data.join(","); file.puts csv_line end}
+	CSV.open("students.csv", "w") {|list| @students.each do |student| student_data = [student[:name], student[:cohort]]; list.puts student_data end}
 end
 
 def load_students
-	file = File.open("students.csv", "r").readlines.each {|line| name, cohort = line.chomp.split(','); add_to_list(name, cohort)}
+	CSV.foreach("students.csv") do |row|
+		name , cohort = row[0], row[1]
+		add_to_list(name, cohort)
+	end
 end
 
 

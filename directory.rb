@@ -112,11 +112,15 @@ def interactive_menu
 end
 
 def save_students
-	CSV.open("students.csv", "w") {|list| @students.each do |student| student_data = [student[:name], student[:cohort]]; list.puts student_data end}
+	puts "Which file do you want to save to?"
+	choice = gets.chomp
+	CSV.open(choice, "w") {|list| @students.each do |student| student_data = [student[:name], student[:cohort]]; list.puts student_data end}
 end
 
 def load_students
-	CSV.foreach("students.csv") do |row|
+	puts "Which file would you like to load from?"
+	choice = gets.chomp
+	CSV.foreach(choice) do |row|
 		name , cohort = row[0], row[1]
 		add_to_list(name, cohort)
 	end

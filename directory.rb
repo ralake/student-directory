@@ -11,12 +11,8 @@ def input_students
   while !name.empty? do
   	puts "Enter #{name}'s cohort month".center(70)
   	cohort = gets.strip
-=begin
-Trying to add string default to hash values if user doesn't input...
-  	list = Hash.new("Unknown")
-  	list[:name] = name; list[:cohort] = cohort; list[:nationality] = nationality
-  	students << list
-=end
+  	#Ask makers teachers about default value for hash instead of using this if statement. Can't figure it out
+  	if cohort == "" then cohort = "Unknown" end
     add_to_list(name, cohort)
   	if @students.length == 1
   		puts "Now we have #{@students.length} student.".center(70)
@@ -29,7 +25,11 @@ Trying to add string default to hash values if user doesn't input...
 end
 
 def add_to_list(name, cohort)
-	@students	<<{:name => name, :cohort => cohort}
+	new_student = {}
+	new_student.default = "Unknown"
+	new_student[:name] = name
+	new_student[:cohort] = cohort
+	@students	<< new_student
 end
 
 def print_header

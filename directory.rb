@@ -15,7 +15,7 @@ Trying to add string default to hash values if user doesn't input...
   	list[:name] = name; list[:cohort] = cohort; list[:nationality] = nationality
   	students << list
 =end
-    @students << {:name => name, :cohort => cohort}
+    add_to_list(name, cohort)
   	if @students.length == 1
   		puts "Now we have #{@students.length} student.".center(70)
   	else	
@@ -24,6 +24,10 @@ Trying to add string default to hash values if user doesn't input...
   	name = gets.strip
   end
   @students
+end
+
+def add_to_list(name, cohort)
+	@students	<<{:name => name, :cohort => cohort}
 end
 
 def print_header
@@ -60,11 +64,12 @@ def print_footer
 	if @students.length == 1
   	puts "Overall, we have #{@students.length} future maker".center(70)
   else
-  	puts "Overall, we have #{@students.length} future makers".center(70)
+  	puts "Overall, we have #{@students.length} future makers\n".center(70)
   end
 end
 
 def print_menu
+	puts "- - -STUDENT DIRECTORY- - -".center(70)
   puts "1. Input students".center(70)
   puts "2. Show students".center(70)
   puts "3. Save the students list to students.csv".center(70)
@@ -118,7 +123,7 @@ def load_students
 	file = File.open("students.csv", "r")
 	file.readlines.each do |line|
 		name, cohort = line.chomp.split(',')
-			@students << {:name => name, :cohort => cohort}
+		  add_to_list(name, cohort)
 	end
 	file.close
 end

@@ -6,12 +6,12 @@ def input_students
   puts "Please enter the name of a student".center(70)
   puts "To finish, just hit return twice.".center(70)
 
-  name = gets.strip
+  name = STDIN.gets.chomp
 
   while !name.empty? do
   	puts "Enter #{name}'s cohort month".center(70)
-  	cohort = gets.strip
-  	#Ask makers teachers about default value for hash instead of using this if statement. Can't figure it out
+  	cohort = STDIN.gets.chomp.to_sym
+  	#Ask makers teachers about default value for hash instead of using this if statement. Can't figure it out. What if the name is not entered?
   	if cohort == "" then cohort = "Unknown" end
     add_to_list(name, cohort)
   	if @students.length == 1
@@ -19,17 +19,13 @@ def input_students
   	else	
   		puts "Now we have #{@students.length} students.".center(70)
   	end
-  	name = gets.strip
+  	name = STDIN.gets.chomp
   end
   @students
 end
 
 def add_to_list(name, cohort)
-	new_student = {}
-	new_student.default = "Unknown"
-	new_student[:name] = name
-	new_student[:cohort] = cohort
-	@students	<< new_student
+	@students	<< {:name => name, :cohort => cohort.to_sym}
 end
 
 def print_header
@@ -39,16 +35,16 @@ end
 
 def october_cohort
   puts "October Cohort".center(70)
-  @students.each do |maker|
-    maker.each {|k, v| if v == "October" then puts "#{maker[:name]}".center(70) end}
+	@students.each_with_index do |maker, index| i = index + 1;
+    maker.each {|k, v| if v == "October" then puts "#{i}. #{maker[:name]}".center(70) end}
   end
 end
 
 def other_cohorts
   puts "Other Cohorts".center(70)
-  @students.each do |maker|
-    unless maker.has_value?("October") then puts "#{maker[:name]} - #{maker[:cohort]} cohort".center(70) end
-  end
+ 	@students.each_with_index do |maker, index| i = index + 1;
+    unless maker.has_value?("October") then puts "#{i}. #{maker[:name]} - #{maker[:cohort]} cohort".center(70) end
+  end 		
 end
 
 def print_students_list
@@ -107,26 +103,36 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end  
 end
 
 def save_students
-	puts "Which file do you want to save to?"
+	puts "Which file do you want to save to?".center(70)
 	choice = gets.chomp
 	CSV.open(choice, "w") {|list| @students.each do |student| student_data = [student[:name], student[:cohort]]; list.puts student_data end}
 end
 
-def load_students
-	puts "Which file would you like to load from?"
-	choice = gets.chomp
-	CSV.foreach(choice) do |row|
+def try_load_students
+	filename = ARGV.first
+	return if filename.nil?
+	if File.exists?(filename)
+		load_students(filename)
+			puts "Loaded #{@students.length} records from #{filename}.".center(70)
+	else
+		puts "Sorry, #{filename} doesn't exist."
+		exit
+	end
+end
+
+def load_students(filename = "students.csv")
+	CSV.foreach(filename) do |row|
 		name , cohort = row[0], row[1]
 		add_to_list(name, cohort)
 	end
 end
 
-
+try_load_students
 interactive_menu
 
 

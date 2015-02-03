@@ -11,7 +11,6 @@ def input_students
   while !name.empty? do
   	puts "Enter #{name}'s cohort month".center(70)
   	cohort = STDIN.gets.chomp.to_sym
-  	#Ask makers teachers about default value for hash instead of using this if statement. Can't figure it out. What if the name is not entered?
   	if cohort == "" then cohort = "Unknown" end
     add_to_list(name, cohort)
   	if @students.length == 1
@@ -35,15 +34,15 @@ end
 
 def october_cohort
   puts "October Cohort".center(70)
-	@students.each_with_index do |maker, index| i = index + 1;
-    maker.each {|k, v| if v == "October" then puts "#{i}. #{maker[:name]}".center(70) end}
+	@students.each_with_index do |maker, index| number = index + 1;
+    maker.each {|maker, cohort| if cohort == "October" then puts "#{number}. #{maker[:name]}".center(70) end}
   end
 end
 
 def other_cohorts
   puts "Other Cohorts".center(70)
- 	@students.each_with_index do |maker, index| i = index + 1;
-    unless maker.has_value?("October") then puts "#{i}. #{maker[:name]} - #{maker[:cohort]} cohort".center(70) end
+ 	@students.each_with_index do |maker, index| number = index + 1;
+    unless maker.has_value?("October") then puts "#{number}. #{maker[:name]} - #{maker[:cohort]} cohort".center(70) end
   end 		
 end
 
@@ -118,7 +117,7 @@ def try_load_students
 	return if filename.nil?
 	if File.exists?(filename)
 		load_students(filename)
-			puts "Loaded #{@students.length} records from #{filename}.".center(70)
+		puts "Loaded #{@students.length} records from #{filename}.".center(70)
 	else
 		puts "Sorry, #{filename} doesn't exist."
 		exit
